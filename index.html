@@ -4,35 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Mountain Climber</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #game { width: 800px; height: 600px; border: 1px solid #000; position: relative; }
+        .ledge { width: 150px; height: 20px; background: #8B4513; position: absolute; }
+        .climber { width: 30px; height: 30px; background: #FFD700; border-radius: 50%; position: absolute; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Penguin Mountain Climber Adventure</h1>
-        <p>Help your penguin reach the summit!</p>
-    </header>
-    <main>
-        <div id="game-ui">
-            <div id="mountain"></div>
-            <div id="penguin"></div>
-            <div id="task-management">
-                <h2>Task List</h2>
-                <ul id="tasks">
-                    <li>Climb 100 meters</li>
-                    <li>Collect fish</li>
-                    <li>Build a snow fort</li>
-                </ul>
-            </div>
-            <button id="start-game">Start Climbing</button>
-        </div>
-        <div id="scoreboard">
-            <h2>Scoreboard</h2>
-            <p id="score">0</p>
-        </div>
-    </main>
-    <footer>
-        <p>&copy; 2026 Penguin Adventures</p>
-    </footer>
-    <script src="script.js"></script>
+    <div id="game">
+        <div class="ledge" style="top: 100px; left: 100px;"></div>
+        <div class="ledge" style="top: 200px; left: 300px;"></div>
+        <div class="ledge" style="top: 300px; left: 500px;"></div>
+        <div class="climber" id="climber" style="top: 580px; left: 100px;"></div>
+    </div>
+    <script>
+        const climber = document.getElementById('climber');
+        let currentPosition = 580; // Starting position of the climber
+        const ledges = document.querySelectorAll('.ledge');
+
+        function moveClimber(direction) {
+            if (direction === 'up' && currentPosition > 0) {
+                currentPosition -= 20;
+                climber.style.top = currentPosition + 'px';
+            } else if (direction === 'down' && currentPosition < 580) {
+                currentPosition += 20;
+                climber.style.top = currentPosition + 'px';
+            }
+        }
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'ArrowUp') {
+                moveClimber('up');
+            } else if (event.key === 'ArrowDown') {
+                moveClimber('down');
+            }
+        });
+
+        // Task system and progress tracking can be implemented here.
+
+        // Gamification animations can be added as well.
+    </script>
 </body>
 </html>
