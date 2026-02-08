@@ -1,1 +1,38 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Three.js Scene</title>\n    <style>\n        body { margin: 0; }\n        canvas { display: block; }\n    </style>\n</head>\n<body>\n    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>\n    <script>\n        // Set up scene, camera, and renderer\n        const scene = new THREE.Scene();\n        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);\n        const renderer = new THREE.WebGLRenderer();\n        renderer.setSize(window.innerWidth, window.innerHeight);\n        document.body.appendChild(renderer.domElement);\n\n        // Create a mountain\n        const geometry = new THREE.ConeGeometry(5, 20, 8);\n        const material = new THREE.MeshStandardMaterial({ color: 0x8B4513 });\n        const mountain = new THREE.Mesh(geometry, material);\n        mountain.rotation.x = Math.PI;\n        scene.add(mountain);\n\n        // Create a penguin climber\n        const penguinGeometry = new THREE.SphereGeometry(0.5, 32, 32);\n        const penguinMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });\n        const penguin = new THREE.Mesh(penguinGeometry, penguinMaterial);\n        penguin.position.set(0, 10, 0);\n        scene.add(penguin);\n\n        // Set up the light\n        const light = new THREE.DirectionalLight(0xffffff, 1);\n        light.position.set(5, 10, 7.5);\n        scene.add(light);\n\n        camera.position.z = 15;\n\n        // Animation loop\n        function animate() {\n            requestAnimationFrame(animate);\n            mountain.rotation.y += 0.01; // Rotate mountain\n            renderer.render(scene, camera);\n        }\n\n        animate();\n    </script>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Mountain Climber</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Penguin Mountain Climber Adventure</h1>
+        <p>Help your penguin reach the summit!</p>
+    </header>
+    <main>
+        <div id="game-ui">
+            <div id="mountain"></div>
+            <div id="penguin"></div>
+            <div id="task-management">
+                <h2>Task List</h2>
+                <ul id="tasks">
+                    <li>Climb 100 meters</li>
+                    <li>Collect fish</li>
+                    <li>Build a snow fort</li>
+                </ul>
+            </div>
+            <button id="start-game">Start Climbing</button>
+        </div>
+        <div id="scoreboard">
+            <h2>Scoreboard</h2>
+            <p id="score">0</p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2026 Penguin Adventures</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
